@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A lightweight, zero-setup, high-performance MQTT Broker & REST API platform for IoT.",
   "main": "src/index.js",
+  "bin": {
+    "litespeak": "./src/index.js"
+  },
   "scripts": {
     "start": "node src/index.js",
     "prod": "pm2 start ecosystem.config.js",

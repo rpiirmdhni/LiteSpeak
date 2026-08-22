@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 if (process.argv.includes('db:reset')) {
   require('./utils/reset-db.js');
   process.exit(0);
