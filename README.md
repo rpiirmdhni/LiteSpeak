@@ -70,11 +70,11 @@ For development and debugging:
 npm start
 ```
 
-**Option B: Global CLI Mode (Pro)**
-You can install LiteSpeak globally to run it from anywhere in your terminal without `npm start`:
+**Option B: Global Installation (Pro)**
+You can install LiteSpeak globally from NPM to run it from anywhere in your terminal:
 
 ```bash
-npm link
+npm install -g @rpiirmdhni/litespeak
 litespeak
 ```
 *(Tip: To reset the database anytime, simply type `litespeak db:reset`)*
