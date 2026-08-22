@@ -3,7 +3,6 @@ const { insertFeed, getFeeds } = require('../config/db');
 const logger = require('../utils/logger');
 const router = express.Router();
 
-// Helper to extract data from query or body, excluding api_key
 const extractData = (req) => {
   const source = req.method === 'POST' ? { ...req.query, ...req.body } : req.query;
   const data = {};
@@ -16,13 +15,12 @@ const extractData = (req) => {
   return data;
 };
 
-// POST /update or GET /update
 const updateHandler = async (req, res) => {
   const source = req.method === 'POST' ? { ...req.query, ...req.body } : req.query;
   const apiKey = source.api_key;
   
   if (!apiKey) {
-    return res.status(400).send('0'); // ThingSpeak returns 0 on fail
+    return res.status(400).send('0');
   }
   
   const data = extractData(req);
@@ -34,7 +32,7 @@ const updateHandler = async (req, res) => {
   try {
     const lastId = await insertFeed(apiKey, data);
     logger.info('REST', `[${apiKey}] Incoming Data: ${JSON.stringify(data)}`);
-    res.status(200).send(lastId.toString()); // ThingSpeak returns the entry ID
+    res.status(200).send(lastId.toString());
   } catch (err) {
     logger.error('REST', `Update error: ${err.message}`);
     res.status(500).send('0');
@@ -45,7 +43,6 @@ router.get('/update', updateHandler);
 router.post('/update', updateHandler);
 router.post('/update.json', updateHandler);
 
-// GET /channels/:channel_id/feeds.json
 router.get('/channels/:channel_id/feeds.json', async (req, res) => {
   const channelId = req.params.channel_id;
   const resultsLimit = req.query.results;
@@ -53,7 +50,6 @@ router.get('/channels/:channel_id/feeds.json', async (req, res) => {
   try {
     const feeds = await getFeeds(channelId, resultsLimit);
     
-    // Construct response matching ThingSpeak
     const response = {
       channel: {
         id: channelId, 
