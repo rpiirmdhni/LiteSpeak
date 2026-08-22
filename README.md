@@ -20,17 +20,18 @@ It acts as a lightweight alternative to commercial IoT cloud platforms, running 
 
 Tired of commercial IoT platforms that restrict your hardware? LiteSpeak was built to eliminate the artificial limitations typically found in enterprise cloud services:
 
-| Feature | 📉 Traditional Cloud Platforms (Free Tier) | ⚡ LiteSpeak |
-| --- | --- | --- |
-| **Cost** | High subscription fees for serious usage | **100% Free & Open Source** |
-| **Rate Limit** | Heavily throttled (e.g., 1 request per 15s) | **Unlimited / Zero Throttling** |
-| **Channels/Devices** | Strictly capped (e.g., max 4 channels) | **Unlimited** (Bound only by server specs) |
-| **Data Fields** | Hardcoded limits (e.g., max 8 fields) | **Unlimited JSON Fields** |
-| **Setup Time** | Tedious registration & API Key generation | **Instant** (Zero-setup, just send the payload) |
+| Feature              | 📉 Traditional Cloud Platforms (Free Tier)  | ⚡ LiteSpeak                                    |
+| -------------------- | ------------------------------------------- | ----------------------------------------------- |
+| **Cost**             | High subscription fees for serious usage    | **100% Free & Open Source**                     |
+| **Rate Limit**       | Heavily throttled (e.g., 1 request per 15s) | **Unlimited / Zero Throttling**                 |
+| **Channels/Devices** | Strictly capped (e.g., max 4 channels)      | **Unlimited** (Bound only by server specs)      |
+| **Data Fields**      | Hardcoded limits (e.g., max 8 fields)       | **Unlimited JSON Fields**                       |
+| **Setup Time**       | Tedious registration & API Key generation   | **Instant** (Zero-setup, just send the payload) |
 
 ## 🚀 Quick Start
 
 ### 1. Installation
+
 Ensure you have [Node.js](https://nodejs.org/) installed, then clone the repository and install dependencies:
 
 ```bash
@@ -40,19 +41,25 @@ npm install
 ```
 
 ### 2. Configuration
+
 Copy the environment template and modify the ports if necessary:
 
 ```bash
 cp .env.example .env
 ```
-*(Default: REST API runs on port `8883` and MQTT Broker runs on port `1883`)*
+
+_(Default: REST API runs on port `8883` and MQTT Broker runs on port `1883`)_
 
 ### 3. Run the Server
+
 For development and debugging:
+
 ```bash
 npm start
 ```
+
 You should see the following logs indicating the server is healthy:
+
 ```
 [2026-08-23 01:00:00][REST] API Server listening on port 8883
 [2026-08-23 01:00:00][MQTT] Broker listening on port 1883
@@ -62,21 +69,24 @@ You should see the following logs indicating the server is healthy:
 ## 📡 API Reference & Usage
 
 ### A. MQTT Protocol (Port 1883)
+
 Use any MQTT Client (like MQTTX or ESP32 PubSubClient) to connect to `localhost:1883` without a username or password.
 
-| Action | Topic | Payload Example |
-| --- | --- | --- |
+| Action           | Topic                           | Payload Example                       |
+| ---------------- | ------------------------------- | ------------------------------------- |
 | **Publish Data** | `channels/{channel_id}/publish` | `{"temperature": 32, "humidity": 60}` |
 
-*Note: Replace `{channel_id}` with any unique identifier for your device (e.g., `channels/GREENHOUSE-01/publish`). The channel will be created automatically upon the first payload.*
+_Note: Replace `{channel_id}` with any unique identifier for your device (e.g., `channels/GREENHOUSE-01/publish`). The channel will be created automatically upon the first payload._
 
 ### B. REST API (Port 8883)
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| **GET / POST** | `/update` | Publish data via HTTP. Example: <br>`GET /update?api_key=GREENHOUSE-01&temp=32` |
-| **GET** | `/channels/{channel_id}/feeds.json` | Retrieve the history of sensor data for a specific channel. |
+
+| Method         | Endpoint                            | Description                                                                     |
+| -------------- | ----------------------------------- | ------------------------------------------------------------------------------- |
+| **GET / POST** | `/update`                           | Publish data via HTTP. Example: <br>`GET /update?api_key=GREENHOUSE-01&temp=32` |
+| **GET**        | `/channels/{channel_id}/feeds.json` | Retrieve the history of sensor data for a specific channel.                     |
 
 **Example Response for `/feeds.json`:**
+
 ```json
 {
   "channel": {
@@ -99,26 +109,33 @@ Need to clear the database for a fresh start? Make sure the main server (`npm st
 ```bash
 npm run db:reset
 ```
+
 This will cleanly wipe the SQLite database and WAL files.
 
 ## 🏭 Production Deployment
 
-For continuous 24/7 operation on a VPS or cloud server, LiteSpeak comes bundled with a PM2 ecosystem configuration. 
+For continuous 24/7 operation on a VPS or cloud server, LiteSpeak comes bundled with a PM2 ecosystem configuration.
 
 To run LiteSpeak in production mode:
+
 ```bash
 npm run prod
 ```
+
 PM2 will automatically manage the Node.js process, restarting it if the server reboots or encounters a fatal crash.
 
 ---
 
 ## 👨‍💻 Author
-**Rafie Restu Ramadhani**  
+
+**Rafie Restu Ramadhani**
+
 - GitHub: [@rpiirmdhni](https://github.com/rpiirmdhni)
 
 ## 📄 License
+
 This project is licensed under the **MIT License**.
 
 ---
-*Built with ❤️ for IoT enthusiasts and the Maker community.*
+
+_Built with ❤️ for IoT enthusiasts and the Maker community._

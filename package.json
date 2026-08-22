@@ -1,0 +1,28 @@
+{
+  "name": "LiteSpeak",
+  "version": "1.0.0",
+  "description": "A lightweight, zero-setup, high-performance MQTT Broker & REST API platform for IoT.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "prod": "pm2 start ecosystem.config.js",
+    "db:reset": "node src/utils/reset-db.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["iot", "mqtt", "rest-api", "broker"],
+  "author": "Rafie Restu Ramadhani (https://github.com/rpiirmdhni)",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "aedes": "^0.51.2",
+    "aedes-server-factory": "^0.2.1",
+    "compression": "^1.8.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "helmet": "^8.3.0",
+    "mqtt": "^5.15.2",
+    "pm2": "^7.0.3",
+    "sqlite3": "^6.0.1"
+  }
+}
