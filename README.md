@@ -16,6 +16,16 @@ It acts as a lightweight alternative to commercial IoT cloud platforms, running 
 - **High Concurrency:** Built-in SQLite WAL mode ensures no database locking, even when receiving hundreds of requests per second.
 - **Production-Ready:** Pre-configured with PM2, Helmet (Security headers), CORS, GZIP Compression, and graceful Uncaught Exception handling.
 
+## 🛠️ Tech Stack
+
+LiteSpeak is powered by a modern, lightweight JavaScript ecosystem:
+- **Runtime:** [Node.js](https://nodejs.org)
+- **MQTT Broker:** [Aedes](https://github.com/moscajs/aedes) (High-performance TCP stream broker)
+- **REST API:** [Express.js](https://expressjs.com/) (Routing & HTTP handling)
+- **Database:** [SQLite3](https://www.sqlite.org/index.html) (Using WAL mode for extreme concurrency)
+- **Process Manager:** [PM2](https://pm2.keymetrics.io/) (For 24/7 production deployment)
+- **Security & Perf:** `helmet`, `cors`, `compression`
+
 ## 🥊 Why LiteSpeak?
 
 Tired of commercial IoT platforms that restrict your hardware? LiteSpeak was built to eliminate the artificial limitations typically found in enterprise cloud services:
