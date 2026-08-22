@@ -43,41 +43,19 @@ Tired of commercial IoT platforms that restrict your hardware? LiteSpeak was bui
 
 ### 1. Installation
 
-Ensure you have [Node.js](https://nodejs.org/) installed, then clone the repository and install dependencies:
-
-```bash
-git clone https://github.com/rpiirmdhni/LiteSpeak.git
-cd LiteSpeak
-npm install
-```
-
-### 2. Configuration
-
-Copy the environment template and modify the ports if necessary:
-
-```bash
-cp .env.example .env
-```
-
-_(Default: REST API runs on port `8883` and MQTT Broker runs on port `1883`)_
-
-### 3. Run the Server
-
-**Option A: Standard Mode (Local)**
-For development and debugging:
-
-```bash
-npm start
-```
-
-**Option B: Global Installation (Pro)**
-You can install LiteSpeak globally from NPM to run it from anywhere in your terminal:
+Install LiteSpeak globally via NPM so you can run it from anywhere in your terminal:
 
 ```bash
 npm install -g @rpiirmdhni/litespeak
+```
+
+### 2. Run the Server
+
+Simply type the following command to start both the MQTT Broker and the REST API:
+
+```bash
 litespeak
 ```
-*(Tip: To reset the database anytime, simply type `litespeak db:reset`)*
 
 You should see the following logs indicating the server is healthy:
 
@@ -86,6 +64,8 @@ You should see the following logs indicating the server is healthy:
 [2026-08-23 01:00:00][MQTT] Broker listening on port 1883
 [2026-08-23 01:00:00][DB] Connected to the SQLite database.
 ```
+
+*(Tip: By default, the REST API runs on port `8883` and MQTT Broker runs on port `1883`. You can change this by setting the `REST_PORT` and `MQTT_PORT` environment variables in your terminal).*
 
 ## 📡 API Reference & Usage
 
@@ -125,25 +105,23 @@ _Note: Replace `{channel_id}` with any unique identifier for your device (e.g., 
 
 ## 🛠️ CLI Utilities
 
-Need to clear the database for a fresh start? Make sure the main server (`npm start`) is stopped, then run:
+Need to clear the database for a fresh start? Simply stop the server and run:
 
 ```bash
-npm run db:reset
+litespeak db:reset
 ```
 
 This will cleanly wipe the SQLite database and WAL files.
 
 ## 🏭 Production Deployment
 
-For continuous 24/7 operation on a VPS or cloud server, LiteSpeak comes bundled with a PM2 ecosystem configuration.
-
-To run LiteSpeak in production mode:
+For continuous 24/7 operation on a VPS or cloud server, you can use PM2 to manage the LiteSpeak process:
 
 ```bash
-npm run prod
+npx pm2 start litespeak --name litespeak-server
 ```
 
-PM2 will automatically manage the Node.js process, restarting it if the server reboots or encounters a fatal crash.
+PM2 will automatically manage the process, restarting it if the server reboots or encounters a fatal crash.
 
 ---
 
