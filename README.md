@@ -63,11 +63,21 @@ _(Default: REST API runs on port `8883` and MQTT Broker runs on port `1883`)_
 
 ### 3. Run the Server
 
+**Option A: Standard Mode (Local)**
 For development and debugging:
 
 ```bash
 npm start
 ```
+
+**Option B: Global CLI Mode (Pro)**
+You can install LiteSpeak globally to run it from anywhere in your terminal without `npm start`:
+
+```bash
+npm link
+litespeak
+```
+*(Tip: To reset the database anytime, simply type `litespeak db:reset`)*
 
 You should see the following logs indicating the server is healthy:
 
