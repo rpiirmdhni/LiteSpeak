@@ -144,7 +144,7 @@ PM2 will automatically manage the Node.js process, restarting it if the server r
 
 ## 📄 License
 
-This project is licensed under the **MIT License**.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
