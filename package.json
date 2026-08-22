@@ -1,5 +1,5 @@
 {
-  "name": "LiteSpeak",
+  "name": "@rpiirmdhni/litespeak",
   "version": "1.0.0",
   "description": "A lightweight, zero-setup, high-performance MQTT Broker & REST API platform for IoT.",
   "main": "src/index.js",
