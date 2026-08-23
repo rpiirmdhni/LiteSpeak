@@ -3,3 +3,4 @@ data/database.sqlite*
 .env
 .DS_Store
 *.log
+.ai_context.md
