@@ -11,6 +11,10 @@ if (process.argv.includes('--version') || process.argv.includes('-v')) {
   process.exit(0);
 }
 
+const updateNotifier = require('update-notifier');
+const pkg = require('../package.json');
+updateNotifier({pkg}).notify();
+
 const origLog = console.log;
 console.log = function(...args) {
   if (args.length > 0 && typeof args[0] === 'string' && args[0].includes('injected env')) return;
