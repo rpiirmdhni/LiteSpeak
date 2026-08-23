@@ -76,17 +76,18 @@ You should see the following logs indicating the server is healthy:
 
 Use any MQTT Client (like MQTTX or ESP32 PubSubClient) to connect to `localhost:1883` without a username or password.
 
-| Action           | Topic                           | Payload Example                       |
-| ---------------- | ------------------------------- | ------------------------------------- |
-| **Publish Data** | `channels/{channel_id}/publish` | `{"temperature": 32, "humidity": 60}` |
+| Action             | Topic                           | Payload Example                       |
+| ------------------ | ------------------------------- | ------------------------------------- |
+| **Publish Data**   | `channels/{channel_id}/publish` | `{"temperature": 32, "humidity": 60}` |
+| **Subscribe Data** | `channels/{channel_id}/publish` | Receive real-time JSON payloads       |
 
-_Note: Replace `{channel_id}` with any unique identifier for your device (e.g., `channels/GREENHOUSE-01/publish`). The channel will be created automatically upon the first payload._
+_Note: Replace `{channel_id}` with any unique identifier for your device (e.g., `channels/GREENHOUSE-01/publish`). The channel will be created automatically upon the first payload. Any data published to this topic (via MQTT or REST API) will be instantly broadcasted to all active subscribers!_
 
 ### B. REST API (Port 8883)
 
 | Method         | Endpoint                            | Description                                                                     |
 | -------------- | ----------------------------------- | ------------------------------------------------------------------------------- |
-| **GET / POST** | `/update`                           | Publish data via HTTP. Example: <br>`GET /update?api_key=GREENHOUSE-01&temp=32` |
+| **GET / POST** | `/update`                           | Publish data via HTTP.<br>**GET:** `/update?api_key=GREENHOUSE-01&temp=32`<br>**POST JSON:** `{"api_key": "GREENHOUSE-01", "temp": 32}` |
 | **GET**        | `/channels/{channel_id}/feeds.json` | Retrieve the history of sensor data for a specific channel.                     |
 
 ### C. MCP Server (AI Agents)
@@ -117,13 +118,11 @@ LiteSpeak natively implements the [Model Context Protocol (MCP)](https://modelco
 
 ## 🛠️ CLI Utilities
 
-Need to clear the database for a fresh start? Simply stop the server and run:
+LiteSpeak comes with built-in utility commands:
 
-```bash
-litespeak db:reset
-```
-
-This will cleanly wipe the SQLite database and WAL files.
+- `litespeak help` (or `-h`): Display the CLI help menu and available arguments.
+- `litespeak --version` (or `-v`): Check the currently installed version.
+- `litespeak db:reset`: Cleanly wipe the SQLite database and WAL files for a fresh start (make sure to stop the server first).
 
 ## 🏭 Production Deployment
 
