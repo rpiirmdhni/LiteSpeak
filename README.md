@@ -10,7 +10,9 @@ It acts as a lightweight alternative to commercial IoT cloud platforms, running 
 
 ## 🌟 Key Features
 
+- **Unified Broker (Bridge):** Two-way synchronization! Data sent via the REST API is instantly broadcasted to all MQTT subscribers in real-time, just like ThingSpeak.
 - **Zero-Friction Setup:** No need to create accounts, generate tokens, or pre-register channels. Just publish to any topic and the system automatically tracks it.
+- **Standard Protocols:** Fully compatible with MQTT 3.1 and 3.1.1. Connect easily with ESP8266, ESP32 (PubSubClient), or standard MQTT tools.
 - **Dual Protocol:** Receive data via **MQTT** (`mqtt://`) and retrieve/publish data via **REST API** (`http://`) simultaneously.
 - **Dynamic Payloads:** Send any JSON structure. The database adapts dynamically without needing rigid schemas.
 - **High Concurrency:** Built-in SQLite WAL mode ensures no database locking, even when receiving hundreds of requests per second.
