@@ -10,7 +10,8 @@ It acts as a lightweight alternative to commercial IoT cloud platforms, running 
 
 ## 🌟 Key Features
 
-- **Unified Broker (Bridge):** Two-way synchronization! Data sent via the REST API is instantly broadcasted to all MQTT subscribers in real-time, just like ThingSpeak.
+- **🤖 AI-Ready (MCP Integration):** Native support for the Model Context Protocol (MCP) via Server-Sent Events. AI agents can seamlessly read sensor history or trigger hardware actuators directly through the built-in MCP server!
+- **Unified Broker (Bridge):** Two-way synchronization! Data sent via the REST API is instantly broadcasted to all MQTT subscribers in real-time, functioning just like traditional enterprise IoT clouds.
 - **Zero-Friction Setup:** No need to create accounts, generate tokens, or pre-register channels. Just publish to any topic and the system automatically tracks it.
 - **Standard Protocols:** Fully compatible with MQTT 3.1 and 3.1.1. Connect easily with ESP8266, ESP32 (PubSubClient), or standard MQTT tools.
 - **Dual Protocol:** Receive data via **MQTT** (`mqtt://`) and retrieve/publish data via **REST API** (`http://`) simultaneously.
@@ -87,6 +88,15 @@ _Note: Replace `{channel_id}` with any unique identifier for your device (e.g., 
 | -------------- | ----------------------------------- | ------------------------------------------------------------------------------- |
 | **GET / POST** | `/update`                           | Publish data via HTTP. Example: <br>`GET /update?api_key=GREENHOUSE-01&temp=32` |
 | **GET**        | `/channels/{channel_id}/feeds.json` | Retrieve the history of sensor data for a specific channel.                     |
+
+### C. MCP Server (AI Agents)
+
+LiteSpeak natively implements the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) via SSE on the REST API port. Connect your AI Agents (like Claude Desktop) to `http://localhost:8883/mcp/sse`.
+
+**Available AI Tools:**
+- `publish_to_channel`: Allows AI to control hardware actuators by sending JSON payloads via MQTT.
+- `read_channel_history`: Allows AI to passively monitor sensor data from the SQLite database.
+- `active_channels` (Resource): Exposes the list of active IoT channels to the AI.
 
 **Example Response for `/feeds.json`:**
 
