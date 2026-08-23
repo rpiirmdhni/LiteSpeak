@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 
+const updateNotifier = require('update-notifier');
+const pkg = require('../package.json');
+updateNotifier({ pkg, updateCheckInterval: 1000 * 60 * 60 }).notify({ defer: false });
+
 if (process.argv.includes('db:reset')) {
   require('./utils/reset-db.js');
   process.exit(0);
 }
 
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
-  const { version } = require('../package.json');
-  console.log(`LiteSpeak v${version}`);
+  console.log(`LiteSpeak v${pkg.version}`);
   process.exit(0);
 }
 
@@ -32,10 +35,6 @@ Example:
 `);
   process.exit(0);
 }
-
-const updateNotifier = require('update-notifier');
-const pkg = require('../package.json');
-updateNotifier({pkg}).notify();
 
 const origLog = console.log;
 console.log = function(...args) {
