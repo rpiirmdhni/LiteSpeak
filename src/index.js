@@ -5,6 +5,12 @@ if (process.argv.includes('db:reset')) {
   process.exit(0);
 }
 
+if (process.argv.includes('--version') || process.argv.includes('-v')) {
+  const { version } = require('../package.json');
+  console.log(`LiteSpeak v${version}`);
+  process.exit(0);
+}
+
 const origLog = console.log;
 console.log = function(...args) {
   if (args.length > 0 && typeof args[0] === 'string' && args[0].includes('injected env')) return;
