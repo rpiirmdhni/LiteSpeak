@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const logger = require('./logger');
 
-const dbPath = path.resolve(__dirname, '../../data');
+const dbPath = path.join(os.homedir(), '.litespeak');
 
 const filesToDelete = [
   'database.sqlite',

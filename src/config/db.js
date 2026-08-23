@@ -1,8 +1,14 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
+const os = require('os');
 const logger = require('../utils/logger');
 
-const dbPath = path.resolve(__dirname, '../../data/database.sqlite');
+const dataDir = path.join(os.homedir(), '.litespeak');
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
+const dbPath = path.join(dataDir, 'database.sqlite');
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     logger.error('DB', `Error opening database: ${err.message}`);
