@@ -121,7 +121,6 @@ async function handleMessage(req, res) {
   let transport = mcpTransports.get(sessionId);
 
   if (!transport && mcpTransports.size === 1) {
-    // Fallback: if client stripped sessionId, and there is only 1 session, use it!
     const firstKey = mcpTransports.keys().next().value;
     transport = mcpTransports.get(firstKey);
     sessionId = firstKey;
