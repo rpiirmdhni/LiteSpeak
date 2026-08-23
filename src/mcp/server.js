@@ -100,7 +100,9 @@ async function handleSse(req, res) {
     const { SSEServerTransport } = await import('@modelcontextprotocol/sdk/server/sse.js');
     const server = await initMcpServer();
     
-    const transport = new SSEServerTransport("/mcp/messages", res);
+    res.setHeader('Cache-Control', 'no-transform');
+    const fullUrl = `${req.protocol}://${req.get('host')}/mcp/messages`;
+    const transport = new SSEServerTransport(fullUrl, res);
     await server.connect(transport);
     
     const sessionId = transport.sessionId;
@@ -108,10 +110,10 @@ async function handleSse(req, res) {
     
     logger.info('MCP', `Client connected (Session ID: ${sessionId})`);
 
-    res.on('close', () => {
+    transport.onclose = () => {
       mcpTransports.delete(sessionId);
       logger.info('MCP', `Client disconnected (Session ID: ${sessionId})`);
-    });
+    };
   } catch (err) {
     logger.error('MCP', `SSE Error: ${err.message}`);
     res.status(500).send("Internal Server Error");
@@ -120,12 +122,16 @@ async function handleSse(req, res) {
 
 async function handleMessage(req, res) {
   const sessionId = req.query.sessionId;
+  logger.info('MCP_DEBUG', `Received POST message for sessionId: ${sessionId}`);
+  logger.info('MCP_DEBUG', `Active sessions: ${Array.from(mcpTransports.keys()).join(', ')}`);
+  
   if (!sessionId) {
     return res.status(400).send("Missing sessionId");
   }
   
   const transport = mcpTransports.get(sessionId);
   if (!transport) {
+    logger.error('MCP_DEBUG', `Session ${sessionId} not found in map!`);
     return res.status(404).send("Session not found");
   }
   
