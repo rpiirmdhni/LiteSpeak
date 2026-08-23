@@ -33,7 +33,6 @@ const updateHandler = async (req, res) => {
     const lastId = await insertFeed(apiKey, data);
     logger.info('REST', `[${apiKey}] Incoming Data: ${JSON.stringify(data)}`);
     
-    // Bridge: Publish to MQTT so subscribers get the data real-time
     const aedes = require('../mqtt/broker');
     aedes.publish({
       cmd: 'publish',
