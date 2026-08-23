@@ -117,17 +117,19 @@ async function handleSse(req, res) {
 }
 
 async function handleMessage(req, res) {
-  const sessionId = req.query.sessionId;
-  logger.info('MCP_DEBUG', `Received POST message for sessionId: ${sessionId}`);
-  logger.info('MCP_DEBUG', `Active sessions: ${Array.from(mcpTransports.keys()).join(', ')}`);
-  
-  if (!sessionId) {
-    return res.status(400).send("Missing sessionId");
+  let sessionId = req.query.sessionId;
+  let transport = mcpTransports.get(sessionId);
+
+  if (!transport && mcpTransports.size === 1) {
+    // Fallback: if client stripped sessionId, and there is only 1 session, use it!
+    const firstKey = mcpTransports.keys().next().value;
+    transport = mcpTransports.get(firstKey);
+    sessionId = firstKey;
   }
   
-  const transport = mcpTransports.get(sessionId);
   if (!transport) {
     logger.error('MCP_DEBUG', `Session ${sessionId} not found in map!`);
+    logger.info('MCP_DEBUG', `Active sessions: ${Array.from(mcpTransports.keys()).join(', ')}`);
     return res.status(404).send("Session not found");
   }
   
