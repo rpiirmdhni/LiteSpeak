@@ -32,6 +32,17 @@ const updateHandler = async (req, res) => {
   try {
     const lastId = await insertFeed(apiKey, data);
     logger.info('REST', `[${apiKey}] Incoming Data: ${JSON.stringify(data)}`);
+    
+    // Bridge: Publish to MQTT so subscribers get the data real-time
+    const aedes = require('../mqtt/broker');
+    aedes.publish({
+      cmd: 'publish',
+      qos: 0,
+      topic: `channels/${apiKey}/publish`,
+      payload: Buffer.from(JSON.stringify(data)),
+      retain: false
+    });
+
     res.status(200).send(lastId.toString());
   } catch (err) {
     logger.error('REST', `Update error: ${err.message}`);
