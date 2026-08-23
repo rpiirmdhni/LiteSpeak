@@ -1,6 +1,6 @@
 {
   "name": "@rpiirmdhni/litespeak",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A lightweight, zero-setup, high-performance MQTT Broker & REST API platform for IoT.",
   "repository": {
     "type": "git",
@@ -33,6 +33,16 @@
     "sqlite3": "^6.0.1"
   },
   "overrides": {
-    "js-yaml": "^4.3.1"
+    "js-yaml": "^4.3.1",
+    "es-define-property": "npm:@socketregistry/es-define-property@^1.0.7",
+    "function-bind": "npm:@socketregistry/function-bind@^1.0.7",
+    "gopd": "npm:@socketregistry/gopd@^1.0.7",
+    "has-symbols": "npm:@socketregistry/has-symbols@^1.0.7",
+    "hasown": "npm:@socketregistry/hasown@^1.0.7",
+    "object-assign": "npm:@socketregistry/object-assign@^1.0.5",
+    "safe-buffer": "npm:@socketregistry/safe-buffer@^1.0.9",
+    "safer-buffer": "npm:@socketregistry/safer-buffer@^1.0.10",
+    "side-channel": "npm:@socketregistry/side-channel@^1.0.10",
+    "typedarray": "npm:@socketregistry/typedarray@^1.0.8"
   }
 }
