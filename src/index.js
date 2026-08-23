@@ -11,6 +11,28 @@ if (process.argv.includes('--version') || process.argv.includes('-v')) {
   process.exit(0);
 }
 
+if (process.argv.includes('help') || process.argv.includes('--help') || process.argv.includes('-h')) {
+  console.log(`
+⚡ LiteSpeak CLI
+
+Commands:
+  litespeak                 Start the Unified Broker (REST & MQTT)
+  litespeak db:reset        Wipe and reset the SQLite database cleanly
+  litespeak help            Show this help message
+
+Options:
+  -v, --version             Show current version
+
+Environment Variables:
+  REST_PORT                 Port for REST API (default: 8883)
+  MQTT_PORT                 Port for MQTT Broker (default: 1883)
+  
+Example:
+  REST_PORT=3000 litespeak
+`);
+  process.exit(0);
+}
+
 const updateNotifier = require('update-notifier');
 const pkg = require('../package.json');
 updateNotifier({pkg}).notify();
