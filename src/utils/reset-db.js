@@ -34,5 +34,5 @@ if (failedCount > 0) {
 } else if (deletedCount === 0) {
   logger.info('DB', 'No database files found (database is already clean).');
 } else {
-  logger.info('DB', 'Database reset completed successfully! You can run npm start again.');
+  logger.info('DB', 'Database reset completed successfully! You can run litespeak again.');
 }
