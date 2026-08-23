@@ -81,7 +81,7 @@ app.use((err, req, res, next) => {
 
 app.listen(REST_PORT, () => {
   logger.info('REST', `API Server listening on port ${REST_PORT}`);
-  logger.info('MCP', `Server-Sent Events endpoint active at /mcp/sse`);
+  logger.info('MCP', `Server-Sent Events endpoint active on port ${REST_PORT} at /mcp/sse`);
 });
 
 const mqttServer = aedesFactory.createServer(aedes);
