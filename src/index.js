@@ -2,7 +2,7 @@
 
 const updateNotifier = require('update-notifier');
 const pkg = require('../package.json');
-updateNotifier({ pkg, updateCheckInterval: 1000 * 60 * 60 }).notify({ defer: false });
+updateNotifier({ pkg, updateCheckInterval: 0 }).notify({ defer: false });
 
 if (process.argv.includes('db:reset')) {
   require('./utils/reset-db.js');
