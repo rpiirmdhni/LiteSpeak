@@ -2,20 +2,16 @@ const { insertFeed, getFeeds, db } = require('../config/db');
 const aedes = require('../mqtt/broker');
 const logger = require('../utils/logger');
 
-let mcpServerInstance = null;
-
 async function initMcpServer() {
-  if (mcpServerInstance) return mcpServerInstance;
-
   const { McpServer, ResourceTemplate } = await import('@modelcontextprotocol/sdk/server/mcp.js');
   const { z } = require('zod');
 
-  mcpServerInstance = new McpServer({
+  const serverInstance = new McpServer({
     name: "litespeak-mcp",
     version: "1.2.4"
   });
 
-  mcpServerInstance.tool(
+  serverInstance.tool(
     "publish_to_channel",
     "Publish a JSON payload to a specific IoT channel via MQTT. The data will also be saved to the database.",
     {
@@ -45,7 +41,7 @@ async function initMcpServer() {
     }
   );
 
-  mcpServerInstance.tool(
+  serverInstance.tool(
     "read_channel_history",
     "Fetch historical sensor data for a specific IoT channel.",
     {
@@ -67,7 +63,7 @@ async function initMcpServer() {
     }
   );
 
-  mcpServerInstance.resource(
+  serverInstance.resource(
     "active_channels",
     new ResourceTemplate("channels://active", { list: undefined }),
     async (uri) => {
@@ -90,7 +86,7 @@ async function initMcpServer() {
     }
   );
 
-  return mcpServerInstance;
+  return serverInstance;
 }
 
 const mcpTransports = new Map();

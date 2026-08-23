@@ -1,6 +1,6 @@
 {
   "name": "@rpiirmdhni/litespeak",
-  "version": "1.2.9",
+  "version": "1.3.0",
   "description": "A lightweight, zero-setup, high-performance MQTT Broker & REST API platform for IoT.",
   "repository": {
     "type": "git",
