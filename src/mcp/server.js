@@ -7,16 +7,14 @@ let mcpServerInstance = null;
 async function initMcpServer() {
   if (mcpServerInstance) return mcpServerInstance;
 
-  // Dynamic import for ESM packages
   const { McpServer, ResourceTemplate } = await import('@modelcontextprotocol/sdk/server/mcp.js');
   const { z } = require('zod');
 
   mcpServerInstance = new McpServer({
     name: "litespeak-mcp",
-    version: "1.1.6"
+    version: "1.2.4"
   });
 
-  // 1. Tool: publish_to_channel
   mcpServerInstance.tool(
     "publish_to_channel",
     "Publish a JSON payload to a specific IoT channel via MQTT. The data will also be saved to the database.",
@@ -47,7 +45,6 @@ async function initMcpServer() {
     }
   );
 
-  // 2. Tool: read_channel_history
   mcpServerInstance.tool(
     "read_channel_history",
     "Fetch historical sensor data for a specific IoT channel.",
@@ -70,7 +67,6 @@ async function initMcpServer() {
     }
   );
 
-  // 3. Resource: active_channels
   mcpServerInstance.resource(
     "active_channels",
     new ResourceTemplate("channels://active", { list: undefined }),
@@ -97,7 +93,6 @@ async function initMcpServer() {
   return mcpServerInstance;
 }
 
-// Express Handlers
 async function handleSse(req, res) {
   try {
     const { SSEServerTransport } = await import('@modelcontextprotocol/sdk/server/sse.js');
@@ -106,7 +101,6 @@ async function handleSse(req, res) {
     const transport = new SSEServerTransport("/mcp/messages", res);
     await server.connect(transport);
     
-    // Store transport by sessionId globally in app.locals
     req.app.locals.mcpTransports = req.app.locals.mcpTransports || new Map();
     const sessionId = transport.sessionId;
     req.app.locals.mcpTransports.set(sessionId, transport);
