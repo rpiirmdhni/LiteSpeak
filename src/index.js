@@ -19,7 +19,7 @@ if (process.argv.includes('help') || process.argv.includes('--help') || process.
 ⚡ LiteSpeak CLI
 
 Commands:
-  litespeak                 Start the Unified Broker (REST & MQTT)
+  litespeak                 Start the Unified Broker (REST, MQTT & MCP)
   litespeak db:reset        Wipe and reset the SQLite database cleanly
   litespeak help            Show this help message
 
