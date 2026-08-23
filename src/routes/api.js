@@ -1,7 +1,12 @@
 const express = require('express');
+const router = express.Router();
 const { insertFeed, getFeeds } = require('../config/db');
 const logger = require('../utils/logger');
-const router = express.Router();
+const mcpServer = require('../mcp/server');
+
+// MCP Endpoints (Server-Sent Events)
+router.get('/mcp/sse', mcpServer.handleSse);
+router.post('/mcp/messages', mcpServer.handleMessage);
 
 const extractData = (req) => {
   const source = req.method === 'POST' ? { ...req.query, ...req.body } : req.query;
