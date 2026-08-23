@@ -26,6 +26,7 @@ LiteSpeak is powered by a modern, lightweight JavaScript ecosystem:
 - **Runtime:** [Node.js](https://nodejs.org)
 - **MQTT Broker:** [Aedes](https://github.com/moscajs/aedes) (High-performance TCP stream broker)
 - **REST API:** [Express.js](https://expressjs.com/) (Routing & HTTP handling)
+- **AI Integration:** [MCP SDK](https://modelcontextprotocol.io/) (Server-Sent Events for AI agents)
 - **Database:** [SQLite3](https://www.sqlite.org/index.html) (Using WAL mode for extreme concurrency)
 - **Process Manager:** [PM2](https://pm2.keymetrics.io/) (For 24/7 production deployment)
 - **Security & Perf:** `helmet`, `cors`, `compression`
@@ -64,6 +65,7 @@ You should see the following logs indicating the server is healthy:
 
 ```
 [2026-08-23 01:00:00][REST] API Server listening on port 8883
+[2026-08-23 01:00:00][MCP] Server-Sent Events endpoint active on port 8883 at /mcp/sse
 [2026-08-23 01:00:00][MQTT] Broker listening on port 1883
 [2026-08-23 01:00:00][DB] Connected to the SQLite database.
 ```
@@ -87,7 +89,7 @@ _Note: Replace `{channel_id}` with any unique identifier for your device (e.g., 
 
 | Method         | Endpoint                            | Description                                                                     |
 | -------------- | ----------------------------------- | ------------------------------------------------------------------------------- |
-| **GET / POST** | `/update`                           | Publish data via HTTP.<br>**GET:** `/update?api_key=GREENHOUSE-01&temp=32`<br>**POST JSON:** `{"api_key": "GREENHOUSE-01", "temp": 32}` |
+| **GET / POST** | `/update`                           | Publish data via HTTP.<br>**GET:** `/update?api_key={channel_id}&temp=32`<br>**POST JSON:** `{"api_key": "{channel_id}", "temp": 32}` |
 | **GET**        | `/channels/{channel_id}/feeds.json` | Retrieve the history of sensor data for a specific channel.                     |
 
 ### C. MCP Server (AI Agents)
@@ -104,7 +106,7 @@ LiteSpeak natively implements the [Model Context Protocol (MCP)](https://modelco
 ```json
 {
   "channel": {
-    "id": "GREENHOUSE-01"
+    "id": "{channel_id}"
   },
   "feeds": [
     {
